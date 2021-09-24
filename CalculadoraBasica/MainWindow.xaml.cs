@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace CalculadoraBasica
 {
@@ -20,26 +10,6 @@ namespace CalculadoraBasica
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string operando1;
-        private string operando2;
-        private string resultado;
-
-        public string Operando1
-        {
-            get { return operando1TextBox.Text; }
-            private set { operando1 = value; }
-        }
-        public string Operando2
-        {
-            get { return operando2TextBox.Text; }
-            private set { operando2 = value; }
-        }
-        public string Resultado
-        {
-            get { return resultadoTextBox.Text; }
-            private set { resultado = value; }
-        }
-
         public MainWindow()
         {
             InitializeComponent();
@@ -48,26 +18,31 @@ namespace CalculadoraBasica
 
         private void Calcular()
         {
-            double operando1d, operando2d, resultadod;
-            operando1d = double.Parse(Operando1);
-            operando2d = double.Parse(Operando2);
-            resultadod = double.Parse(Resultado);
-
-
-            switch (char.Parse(operadorTextBox.Text))
+            try
             {
-                case '+':
-                    resultadod = operando1d + operando2d;
-                    break;
-                case '-':
-                    resultadod = operando1d - operando2d;
-                    break;
-                case '*':
-                    resultadod = operando1d * operando2d;
-                    break;
-                case '/':
-                    resultadod = operando1d / operando2d;
-                    break;
+                double operando1, operando2;
+                operando1 = double.Parse(operando1TextBox.Text);
+                operando2 = double.Parse(operando2TextBox.Text);
+
+                switch (operadorTextBox.Text)
+                {
+                    case "+":
+                        resultadoTextBox.Text = $"{operando1 + operando2}";
+                        break;
+                    case "-":
+                        resultadoTextBox.Text = $"{operando1 - operando2}";
+                        break;
+                    case "*":
+                        resultadoTextBox.Text = $"{operando1 * operando2}";
+                        break;
+                    case "/":
+                        resultadoTextBox.Text = $"{operando1 / operando2}";
+                        break;
+                }
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Has introducido un valor incorrecto", "-- ERROR --");
             }
         }
 
